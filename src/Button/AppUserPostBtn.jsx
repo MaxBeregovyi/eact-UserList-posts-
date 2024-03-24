@@ -4,7 +4,7 @@ function AppUserPostBtn({ handleUserPostsClick }) {
   const [showUserPosts, setShowUserPosts] = useState(false);
   const toggleShowUserPosts = () => {
     setShowUserPosts((prevState) => !prevState);
-    handleUserPostsClick(); // Виклик функції з зовнішнього компонента
+    handleUserPostsClick();
   };
   return (
     <button className={"post__name_btPost"} onClick={toggleShowUserPosts}>

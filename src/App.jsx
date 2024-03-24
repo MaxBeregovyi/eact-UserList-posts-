@@ -5,6 +5,7 @@ import AppInput from "./AppInput.jsx";
 import AppInfoBtn from "./Button/AppInfoBtn.jsx";
 import AppUserPostBtn from "./Button/AppUserPostBtn.jsx";
 import UserInfo from "./UserInfo.jsx";
+import AppButtonAllPosts from "./Button/AppButtonAllPosts.jsx";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -17,6 +18,7 @@ function App() {
   const [isLogined, setIsLogined] = useState(false);
   const [showUserInfo, setShowUserInfo] = useState(false);
   const [showUserPosts, setShowUserPosts] = useState(false);
+  const [showAllPosts, setShowAllPosts] = useState(false); // Додали стан для відстеження видимості всіх постів
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -58,21 +60,30 @@ function App() {
     setLoggedInUser(null);
     setShowUserInfo(false);
     setShowUserPosts(false);
+    setShowAllPosts(false); // Скидаємо стан видимості всіх постів при виході з системи
   };
 
   const handleUserPostsClick = () => {
     setShowUserPosts((prevShowUserPosts) => !prevShowUserPosts);
-  }; // Виправлено помилку тут
+    setShowAllPosts(false); // Закриваємо всі пости, коли відображаються пости користувача
+  };
 
   const handleInfoClick = () => {
     setShowUserInfo((prevShowUserInfo) => !prevShowUserInfo);
     if (showUserPosts) {
       setShowUserPosts(false);
     }
+    setShowAllPosts(false);
+  };
+
+  const handleAllPostsClick = () => {
+    setShowAllPosts((prevShowAllPosts) => !prevShowAllPosts);
+    setShowUserPosts(false);
   };
 
   return (
     <>
+      <h1 className={"post__text"}>User-Post</h1>
       {isLogined ? (
         <div>
           <div className={"post__name"}>
@@ -80,16 +91,25 @@ function App() {
             <AppInfoBtn handleInfoClick={handleInfoClick} />
             <AppUserPostBtn handleUserPostsClick={handleUserPostsClick} />
             <AppButton label={"LogOut"} clickHandler={logoutHandler} />
+            <AppButtonAllPosts
+              label={showAllPosts ? "Hide All Posts" : "Show All Posts"}
+              clickHandler={handleAllPostsClick}
+            />
           </div>
           {showUserInfo && loggedInUser && (
             <UserInfo loggedInUser={loggedInUser} />
           )}
-
-          {/* Показуємо пости користувача, якщо стан showUserPosts true */}
-          {showUserPosts &&
-            posts
-              .filter((post) => post.userId === loggedInUser.id)
-              .map((item) => <PostCard key={item.id} item={item} />)}
+          {(showUserPosts || showAllPosts) && (
+            <div>
+              {posts
+                .filter((post) =>
+                  showAllPosts ? true : post.userId === loggedInUser.id,
+                )
+                .map((item) => (
+                  <PostCard key={item.id} item={item} />
+                ))}
+            </div>
+          )}
         </div>
       ) : (
         <form onSubmit={submitHandler}>

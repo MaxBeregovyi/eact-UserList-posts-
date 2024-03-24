@@ -4,7 +4,7 @@ function AppInfoBtn({ handleInfoClick }) {
   const [showUserInfo, setShowUserInfo] = useState(false);
   const toggleShowUserInfo = () => {
     setShowUserInfo((prevState) => !prevState);
-    handleInfoClick(); // Виклик функції з зовнішнього компонента
+    handleInfoClick();
   };
   return (
     <>

@@ -101,13 +101,11 @@ button:focus-visible {
   color: #F137A6;
 }
 
-.post__body {
-  margin: 0;
-}
 
 input {
   margin-bottom: 20px;
-  border-radius: 20px;
+  border-radius: 10px;
+  border: none;
   width: 200px;
   height: 24px;
   padding-left: 10px;
@@ -116,10 +114,25 @@ input {
 form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 9px 15px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 9px 15px -8px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 9px 15px -8px rgba(0, 0, 0, 0.75);
+
 }
 
 p {
   color: #1c1b1b;
+}
+
+.post__text {
+  font-size: 50px;
+  text-align: center;
+  color: #F137A6;
 }
 
 .post__name {
@@ -127,12 +140,11 @@ p {
   margin-bottom: 20px;
   align-items: center;
   color: #fe6637;
-  font-size: 28px;
+  font-size: 36px;
   font-weight: bold;
   width: 800px;
-
   grid-template-columns: auto auto;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   row-gap: 12px;
   margin-top: 0;
 
@@ -143,6 +155,10 @@ p {
 
   &_btPost {
     grid-area: 3/1;
+  }
+
+  &_allPost {
+    grid-area: 4/1;
   }
 
   &_btnOut {
