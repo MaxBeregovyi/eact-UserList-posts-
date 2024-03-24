@@ -83,7 +83,7 @@ function App() {
 
   return (
     <>
-      <h1 className={"post__text"}>User-Post</h1>
+      <h1 className={"post__text"}>User-Post-List</h1>
       {isLogined ? (
         <div>
           <div className={"post__name"}>
